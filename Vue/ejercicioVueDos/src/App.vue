@@ -1,6 +1,28 @@
 <script setup>
 import { ref } from 'vue';
 let newTask=ref('')
+let taskList= ref([
+  {Text:'Estudiar',done:false}
+  ,
+  {Text:'jugarPlay',done:true}
+  ])
+  function addTask(){
+    if(newTask.value.trim()==='') return
+taskList.value.push(
+  {
+    Text:newTask.value,
+    done:false
+  }
+)
+newTask.value='';
+  }
+  function setDone(index){
+    taskList.value[index].done =!taskList.value[index].done
+    
+  }
+  function deleteTask(index){
+    taskList.value.splice(index,1)
+  }
 </script>
 
 <template>
@@ -8,11 +30,10 @@ let newTask=ref('')
   <h1>Listas Cosas</h1>
   <p class="subtitle">{{ newTask }}</p>
   <div>
-    <div class="task">TareaUno <span class="button">x</span></div>
-    <div class="task done">TareaDos <span class="button">x</span></div>
+    <div v-for="(task, index) in taskList" :key="index" class="task" :class="{done:task.done}">{{ task.Text }} <span @dblclick="deleteTask(index)" @click="setDone(index)" class="button">x</span></div>
   </div>
   <div>
-    <input v-model="newTask" type="text" placeholder="Escribe tu tarea">
+    <input v-model="newTask" @keypress.enter="addTask" type="text" placeholder="Escribe tu tarea">
     <p class="help" v-show="newTask!= ''">Presiona ENTER para confirmar</p>
   </div>
 </div>
@@ -21,6 +42,7 @@ let newTask=ref('')
 <style scoped>
 .done{
   text-decoration: line-through;
+   /* background-color: rgb(155, 155, 155) !important; */
 }
 .help{
   margin:0;
