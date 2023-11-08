@@ -1,23 +1,41 @@
 <script setup>
-
+import { ref } from 'vue';
+let newTask=ref('')
 </script>
 
 <template>
 <div class="card">
   <h1>Listas Cosas</h1>
-  <p class="subtitle">tarea nueva</p>
+  <p class="subtitle">{{ newTask }}</p>
   <div>
     <div class="task">TareaUno <span class="button">x</span></div>
-    <div class="task">TareaDos <span class="button">x</span></div>
+    <div class="task done">TareaDos <span class="button">x</span></div>
   </div>
   <div>
-    <input type="text" placeholder="Escribe tu tarea">
-    <p>Presiona para confirmar</p>
+    <input v-model="newTask" type="text" placeholder="Escribe tu tarea">
+    <p class="help" v-show="newTask!= ''">Presiona ENTER para confirmar</p>
   </div>
 </div>
 </template>
 
 <style scoped>
+.done{
+  text-decoration: line-through;
+}
+.help{
+  margin:0;
+  font-size: 13px;
+  opacity: 0.4;
+  text-align: center;
+}
+input{
+  width: 100%;
+  border: none;
+  outline: none;
+  padding:  6px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .button{
   background-color: #002333;
   color: white;
@@ -36,11 +54,13 @@
   background-color: #DEEFE7;
   border-radius: 4px;
   padding: 2px 8px;
-  margin-bottom: 2px;
+  padding-right: 2px;
+  padding-bottom: 2px;
+  margin: 5px 0;
 }
 .subtitle{
   padding:0;
-  margin:0;
+  margin:12px 0;
   text-align: center;
   opacity: 0.6;
 }
