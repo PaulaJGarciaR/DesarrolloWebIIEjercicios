@@ -5,12 +5,8 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: { fontFamily: {
-      'oswald': ['Oswald','sans-serif'],
-    },},
+    extend: {fontFamily:{'Oswald':['Oswald','sans-serif']}},
   },
   plugins: [],
-  
 }
-
 
